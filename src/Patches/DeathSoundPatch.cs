@@ -39,14 +39,12 @@ namespace DeathSoundPatch
                     float time = taggedClip?.Length ?? 0f;
                 }
             }
+            
             else
             {
                 __instance.Speaker.Shut();
             }
-
             return true;
         }
-
     }
-
 }
