@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
+    <Version>1.1.0</Version>
     <AssemblyName>inory-agonysfx</AssemblyName>
     <Copyright></Copyright>
   </PropertyGroup>
@@ -25,6 +26,9 @@
     </Reference>
     <Reference Include="Comfort">
       <HintPath>dependencies\Comfort.dll</HintPath>
+    </Reference>
+        <Reference Include="0Harmony">
+    <HintPath>dependencies\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>dependencies\Newtonsoft.Json.dll</HintPath>
