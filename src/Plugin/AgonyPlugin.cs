@@ -2,8 +2,6 @@
 using BepInEx;
 using AgonySFX.Patches;
 using BepInEx.Configuration;
-using System.Linq;
-using System.Reflection;
 using BepInEx.Logging;
 
 namespace AgonySFX
@@ -12,42 +10,49 @@ namespace AgonySFX
     public class Plugin : BaseUnityPlugin
     {
         internal static ConfigEntry<float> AgonySoundChance;
+        internal static ConfigEntry<bool> EnableFikaHeadshotVocalizePatch;
+        internal static ConfigEntry<bool> EnableFikaSoundPatch;
         internal static ManualLogSource agonySFXLogger;
 
         private void Awake()
         {
             agonySFXLogger = BepInEx.Logging.Logger.CreateLogSource("inory-AgonySFX");
 
-            // Config the chance to play death sound
+            // Config for the chance to play death sound
             AgonySoundChance = Config.Bind("", "Agony Sound Chance", 0.5f,
                 new ConfigDescription("Chance of playing the agony sound effects",
                 new AcceptableValueRange<float>(0f, 1f)));
 
-            agonySFXLogger.LogInfo("Agony SFX Plugin loaded. Checking for Fika.Core...");
-                new DeathSoundPatch().Enable();
+            // Config for enabling/disabling FikaHeadshotVocalizePatch
+            EnableFikaHeadshotVocalizePatch = Config.Bind("Fika Users Only", "Enable Fika Headshot Vocalize Patch", false,
+                new ConfigDescription("**TEMPORARY**: Enable if headshots still causes death sounds to play."));
 
-            // Fika only patch
-            if (IsFikaCoreAvailable())
+            // Config for enabling/disabling FikaSoundPatch
+            EnableFikaSoundPatch = Config.Bind("Fika Users Only", "Enable Fika Sound Patch", false,
+                new ConfigDescription("**TEMPORARY**: Enable if you notice death sounds cutting off before finishing. Disable once Fika updates"));
+
+            agonySFXLogger.LogInfo("Agony SFX Plugin loaded. Applying patches...");
+            new DeathSoundPatch().Enable();
+            agonySFXLogger.LogInfo("DeathSoundPatch applied.");
+
+            if (EnableFikaHeadshotVocalizePatch.Value)
             {
-                agonySFXLogger.LogInfo("Fika.Core detected! Applying patches...");
-                new DelayPatch().Enable();
+                agonySFXLogger.LogInfo("Fika Headshot Vocalize Patch is enabled. Applying patch...");
                 new HeadshotVocalizePatch().Enable();
             }
-        }
-
-        private bool IsFikaCoreAvailable()
-        {
-            try
+            else
             {
-                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-                var fikaAssembly = assemblies.FirstOrDefault(asm => asm.GetName().Name == "Fika.Core");
-
-                return fikaAssembly != null;
+                agonySFXLogger.LogInfo("Fika Headshot Vocalize Patch is disabled.");
             }
-            catch (Exception ex)
+
+            if (EnableFikaSoundPatch.Value)
             {
-                agonySFXLogger.LogError($"Error while checking for Fika.Core: {ex.Message}");
-                return false;
+                agonySFXLogger.LogInfo("Fika Sound Patch is enabled. Applying patch...");
+                new FikaSoundPatch().Enable();
+            }
+            else
+            {
+                agonySFXLogger.LogInfo("Fika Sound Patch is disabled.");
             }
         }
     }

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace AgonySFX.Patches
 {
-    public class DelayPatch : ModulePatch
+    public class FikaSoundPatch : ModulePatch
     {
         //Workaround Fika's 2 second network cleanup
         //timer by extending it so it doesn't interrupt death sounds
