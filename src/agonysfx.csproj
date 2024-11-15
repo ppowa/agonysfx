@@ -51,6 +51,9 @@
     <Reference Include="System.IO">
       <HintPath>dependencies\System.Runtime.dll</HintPath>
     </Reference>
+        <Reference Include="FIKA.CORE">
+      <HintPath>dependencies\Fika.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
