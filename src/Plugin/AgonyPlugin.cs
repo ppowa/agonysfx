@@ -12,6 +12,7 @@ namespace AgonySFX
         internal static ConfigEntry<float> AgonySoundChance;
         internal static ConfigEntry<bool> EnableFikaHeadshotVocalizePatch;
         internal static ConfigEntry<bool> EnableFikaSoundPatch;
+        public static ConfigEntry<bool> DebugLogs;
         internal static ManualLogSource agonySFXLogger;
 
         private void Awake()
@@ -30,6 +31,9 @@ namespace AgonySFX
             // Config for enabling/disabling FikaSoundPatch
             EnableFikaSoundPatch = Config.Bind("Fika Users Only", "Enable Fika Sound Patch", false,
                 new ConfigDescription("**TEMPORARY**: Enable if you notice death sounds cutting off before finishing. Disable once Fika updates"));
+
+            //Made debug toggleable and off by default to avoid flooding logs.
+            DebugLogs = Config.Bind("Debug", "Debug", false, new ConfigDescription("Enable debug logs", null, new ConfigurationManagerAttributes { IsAdvanced = true }));
 
             agonySFXLogger.LogInfo("Agony SFX Plugin loaded. Applying patches...");
             new DeathSoundPatch().Enable();

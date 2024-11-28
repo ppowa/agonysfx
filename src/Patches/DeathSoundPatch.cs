@@ -20,6 +20,8 @@ namespace AgonySFX.Patches
             // Load AgonySoundChance from plugin
             float agonyChance = AgonySFX.Plugin.AgonySoundChance.Value;
             float randomRoll = UnityEngine.Random.value;
+            bool debugLogs = AgonySFX.Plugin.DebugLogs.Value;
+
             EPhraseTrigger trigger;
 
             __instance.LastDamageType = damageType;
@@ -33,7 +35,11 @@ namespace AgonySFX.Patches
                 // If the damage is weapon-induced, decide whether
                 // to trigger OnAgony or OnDeath based on the agonyChance probability.
                 trigger = randomRoll < agonyChance ? EPhraseTrigger.OnAgony : EPhraseTrigger.OnDeath;
-                Plugin.agonySFXLogger.LogInfo($"Rolled: {randomRoll}, Agony Chance: {agonyChance}, Triggered: {trigger}, Damage Type: {__instance.LastDamageType}");
+                
+                if(debugLogs)
+                {
+                    Plugin.agonySFXLogger.LogInfo($"Rolled: {randomRoll}, Agony Chance: {agonyChance}, Triggered: {trigger}, Damage Type: {__instance.LastDamageType}");
+                }
             }
 
             //Check if bot should vocalize depending on damage location.
