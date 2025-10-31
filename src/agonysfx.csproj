@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <AssemblyName>inory-agonysfx</AssemblyName>
-    <Version>1.1.4</Version>
+    <Version>1.1.5</Version>
     <Copyright></Copyright>
   </PropertyGroup>
 
@@ -50,9 +50,6 @@
     </Reference>
     <Reference Include="System.IO">
       <HintPath>dependencies\System.Runtime.dll</HintPath>
-    </Reference>
-        <Reference Include="FIKA.CORE">
-      <HintPath>dependencies\Fika.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
 
