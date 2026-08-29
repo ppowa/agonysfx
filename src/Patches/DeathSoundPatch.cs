@@ -4,6 +4,7 @@ using System.Reflection;
 using SPT.Reflection.Patching;
 using HarmonyLib;
 using UnityEngine;
+using EFT.HealthSystem;
 
 namespace AgonySFX.Patches
 {

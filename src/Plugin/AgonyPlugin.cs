@@ -6,7 +6,8 @@ using BepInEx.Logging;
 
 namespace AgonySFX
 {
-    [BepInPlugin("com.inory.agonysfx", "inory-agonysfx", "1.1.4")]
+    [BepInDependency("com.SPT.core", "4.1.0")]
+    [BepInPlugin("com.inory.agonysfx", "inory-agonysfx", "1.2.0")]
     public class Plugin : BaseUnityPlugin
     {
         internal static ConfigEntry<float> AgonySoundChance;
